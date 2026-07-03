@@ -7,9 +7,17 @@ SELECT * FROM laptopdata;
 CREATE TABLE laptop_backup LIKE laptopdata;
 INSERT INTO laptop_backup SELECT * FROM laptopdata;
 
+#check for size
+SELECT DATA_LENGTH/1024 FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = 'my_db'
+AND TABLE_NAME = 'laptopdata';
+
+
 #Change Column name
 ALTER TABLE laptopdata 
 RENAME COLUMN `Unnamed: 0` TO `index`;
+
+
 
 #Drop complete null rows
 SET SQL_SAFE_UPDATES = 0;
@@ -105,10 +113,7 @@ FROM laptopdata
 GROUP BY Company, TypeName, Inches, ScreenResolution, `Cpu`, Ram,
 		`Memory`, Gpu, OpSys, Weight, Price ) AS temp);  
 
-#check for size
-SELECT DATA_LENGTH/1024 FROM information_schema.TABLES
-WHERE TABLE_SCHEMA = 'campusx'
-AND TABLE_NAME = 'laptopdata';
+
 
 #Clean columns
 #Clean Ram column
@@ -328,4 +333,11 @@ DROP COLUMN Memory;
 ALTER TABLE laptopdata
 MODIFY COLUMN Primary_Storage INT,
 MODIFY COLUMN Secondary_Storage INT;
+
+#check for size
+SELECT DATA_LENGTH/1024 FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = 'my_db'
+AND TABLE_NAME = 'laptopdata';
+
+
 
